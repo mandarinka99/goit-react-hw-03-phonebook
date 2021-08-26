@@ -17,6 +17,15 @@ class App extends Component {
     filter: ''
   };
 
+  componentDidMount() { 
+    const contacts = JSON.parse(localStorage.getItem("contacts"));
+    contacts && this.setState({ contacts: contacts });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+  }
+
   onHandleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -47,13 +56,15 @@ class App extends Component {
 
 
   render() {
+
+
+
     let newFilter = this.state.contacts
     if (this.state.filter) {
       newFilter = this.state.contacts.filter(contact =>
         contact.name.toLowerCase().includes(this.state.filter.toLowerCase()))
      }
 
-    console.log(this.state.filter)
     return (
       <Container>
         <h1>Phonebook</h1>
