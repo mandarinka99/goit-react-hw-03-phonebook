@@ -23,7 +23,9 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    if (this.state.contacts !==  prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
   }
 
   onHandleChange = (e) => {
@@ -35,7 +37,7 @@ class App extends Component {
     const find = this.state.contacts.find(contact =>
         contact.name.toLowerCase() === name.toLowerCase())
     if (find) return alert(`${name} is already in contacts`)
-    const contactsArr = this.state.contacts;
+    const contactsArr = [...this.state.contacts];
     contactsArr.push({
       id: uuidv4(),
       name,
@@ -54,11 +56,7 @@ class App extends Component {
       });
   }
 
-
   render() {
-
-
-
     let newFilter = this.state.contacts
     if (this.state.filter) {
       newFilter = this.state.contacts.filter(contact =>
