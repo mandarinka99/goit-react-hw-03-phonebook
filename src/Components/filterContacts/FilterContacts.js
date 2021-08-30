@@ -1,4 +1,5 @@
-import s from "./FilterContactForm.module.css"
+import s from "./FilterContactForm.module.css";
+import PropTypes from "prop-types";
 
 const FilterContacts = ({onHandleChange}) => {
   return (
@@ -19,6 +20,10 @@ const FilterContacts = ({onHandleChange}) => {
       </form>
     </div>
   );
+}
+
+FilterContacts.propTypes = {
+  onHandleChange: PropTypes.func,
 }
 
 export default FilterContacts;
